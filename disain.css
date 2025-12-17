@@ -1,117 +1,252 @@
+/* ========================= */
+/* Base Styles (ძველი დიზაინი) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
 body {
-        margin:0;
-        font-family: 'Arial', sans-serif;
-        background:#f0f0f0;
-        color:#222;
-        line-height:1.6;
-    }
-
-    /* Header */
-    header {
-        background:#1a1a1a;
-        color:#fff;
-        padding:15px 20px;
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:space-between;
-        align-items:center;
-    }
-    header h1 {
-        font-size:1.6rem;
-        margin-bottom:5px;
-    }
-    nav a {
-        color:#fff;
-        text-decoration:none;
-        margin-left:15px;
-        font-weight:bold;
-    }
-    nav a:hover {text-decoration:underline;}
-
-    /* Main container */
-    .container {
-        max-width:900px;
-        margin:20px auto;
-        background:#fff;
-        padding:25px 30px;
-        border-radius:8px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    /* Article */
-    .article-title {
-        font-size:1.8rem;
-        font-weight:bold;
-        margin-bottom:10px;
-    }
-    .article-author {
-        font-size:0.95rem;
-        color:#555;
-        margin-bottom:20px;
-    }
-
-    h2 {
-        margin-top:35px;
-        font-size:1.4rem;
-        border-bottom:2px solid #1a1a1a;
-        padding-bottom:5px;
-    }
-    p {margin-bottom:18px; font-size:1rem;}
-    blockquote {
-        margin:25px 0;
-        padding:15px 20px;
-        background:#f4f4f4;
-        border-left:5px solid #1a1a1a;
-        font-style:italic;
-        color:#555;
-    }
-
-    /* Footer */
-    footer {
-        text-align:center;
-        padding:15px 0;
-        background:#1a1a1a;
-        color:#fff;
-        margin-top:40px;
-        font-size:0.9rem;
-    }
-    
-    .article-image img {
-    width: 100%;          /* სიგანე ყოველთვის კონტეინერის */
-    max-width: 900px;     /* დესკტოპისთვის მაქსიმალური სიგანე */
-    height: auto;         /* სიმაღლე პროპორციული */
-    max-height: 450px;    /* დესკტოპისთვის მაქსიმალური სიმაღლე */
-    object-fit: cover;    /* კონტეინერის შევსება, ისე რომ ფოტო არ მოჭრეს */
-    border-radius: 6px;   /* რბილი კუთხეები */
-    display: block;
-    margin: 0 auto 25px auto; /* ცენტრში გამოტანა და სივრცე ქვემოთ */
+  background: #0f0f17;
+  color: #fff;
 }
 
-/* მობილური */
-@media (max-width:600px) {
-    .article-image img {
-        max-height: 250px;  /* პატარა ეკრანზე ნაკლები სიმაღლე */
-    }
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  background: rgba(15,15,23,0.95);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
+.brand {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #6d5dfc, #00e5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    /* Responsive */
-    @media (max-width:600px) {
-        header {
-            flex-direction:column;
-            align-items:flex-start;
-        }
-        nav {
-            margin-top:10px;
-        }
-        nav a {
-            margin-left:0;
-            margin-right:15px;
-        }
-        .container {
-            margin:15px;
-            padding:20px;
-        }
-        .article-title {font-size:1.5rem;}
-        h2 {font-size:1.3rem;}
-    }
+nav a {
+  margin-left: 32px;
+  text-decoration: none;
+  color: #ccc;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 85vh;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+}
+
+.tag {
+  background: #6d5dfc;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  width: fit-content;
+}
+
+.hero-overlay h1 {
+  margin-top: 16px;
+  font-size: 54px;
+  max-width: 900px;
+  line-height: 1.1;
+}
+
+.hero-overlay p {
+  margin-top: 20px;
+  max-width: 600px;
+  color: #ddd;
+  font-size: 18px;
+}
+
+.btn {
+  margin-top: 30px;
+  width: fit-content;
+  padding: 14px 30px;
+  background: linear-gradient(90deg, #6d5dfc, #00e5ff);
+  color: #000;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: 600;
+}
+
+/* Grid Posts */
+.wrapper {
+  padding: 80px 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.post {
+  background: #181827;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: 0.4s;
+}
+
+.post:hover {
+  transform: translateY(-10px);
+}
+
+.post img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.post-content {
+  padding: 30px;
+}
+
+.category {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #00e5ff;
+}
+
+.post-content h2 {
+  margin: 14px 0;
+  font-size: 22px;
+}
+
+.post-content p {
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.post-content a {
+  display: inline-block;
+  margin-top: 16px;
+  text-decoration: none;
+  color: #6d5dfc;
+  font-weight: 600;
+}
+
+/* Footer */
+.footer {
+  padding: 50px;
+  text-align: center;
+  background: #0b0b12;
+  color: #777;
+}
+
+/* ========================= */
+/* Burger + Mobile Responsive */
+
+/* Burger icon */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.burger span {
+  width: 26px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: #141424;
+  padding: 20px;
+  z-index: 999;
+  flex-direction: column;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 14px 0;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #222;
+}
+
+/* open class */
+.mobile-menu.open {
+  display: flex;
+}
+
+/* Mobile layout adjustments */
+@media (max-width: 900px) {
+  nav {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .hero-overlay {
+    padding: 30px 20px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 32px;
+  }
+
+  .hero-overlay p {
+    font-size: 16px;
+  }
+
+  .wrapper {
+    padding: 40px 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .post img {
+    height: 200px;
+  }
+
+  .post-content {
+    padding: 22px;
+  }
+
+  .post-content h2 {
+    font-size: 20px;
+  }
+}

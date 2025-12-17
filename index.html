@@ -1,47 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="disain.css">
-    <link rel="shortcut icon" href="./img/wignebi-1742845415.webp" type="image/x-icon">
-    <title>magazine</title>
+  <meta charset="UTF-8">
+  <title>GEOTIMES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./disain.css">
 </head>
 <body>
-    <header>
-    <h1>ქართული ენა</h1>
-    <nav>
-        <a href="#">მთავარი</a>
-        <a href="#">ლიტერატურა</a>
-        <a href="#">პოეზია</a>
-        <a href="#">კონტაქტი</a>
-    </nav>
+
+<header class="topbar">
+  <div class="brand">GEOTIMES</div>
+
+  <!-- Desktop nav -->
+  <nav class="nav">
+    <a href="#">პოლიტიკა</a>
+    <a href="#">მსოფლიო</a>
+    <a href="#">ლიტერატურა</a>
+    <a href="#">ტექნოლოგიები</a>
+  </nav>
+
+  <!-- Burger icon for mobile -->
+  <div class="burger" id="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </header>
 
-<div class="container">
-    <div class="article-title">დანაშაული და საზოგადოება</div>
-    <div class="article-author">ავტორი: ნიკოლოზ გასვიანი • 12 ნოემბერი 2025</div>
-
-    <div class="article-image">
-        <img src="./img/0c4335b5-f2d1-4a68-ad71-b86de1c2f60d.png" width="50%" alt="">
-    </div>
-
-    <p>დანაშაული არის მოქმედება ან ქმედება, რომელიც კანონით აკრძალულია და საზოგადოების წესების დარღვევად ითვლება. დამნაშავე შეიძლება იყოს ნებისმიერი ადამიანი. დანაშაულის ჩადენის ძირითადი მიზეზებია ფინანსური მდგომარეობა, იძულება, შიში და სხვა მრავალი ფაქტორი.</p>
-
-    <p>როგორ შეიძლება ადამიანი გახდეს დამნაშავე? შესაძლოა, ადამიანი იძულებით აკეთებდეს დანაშაულს ან ვერ აცნობიერებდეს, რომ დამნაშავეა. შესაძლოა, ეს ქცევა მისი ბავშვობის ტრავმიდან ან გარემოცვის გავლენით წარმოიშვას.</p>
-
-    <h2>პარალელი</h2>
-    <p>შეგვიძლია გავიხსენოთ ორი ძმა ილია ჭავჭავაძის მოთხრობიდან „სარჩობელაზედ“. მათ მძიმე ბავშვობა ჰქონდათ, მამის გარდაცვალების შემდეგ მამინაცვალმა მთელი ქონება გაყიდა და მათზე ძალადობდა. როდესაც მათ შეძლეს ამ სიტუაციიდან თავის დაღწევა, საზოგადოებამ დახმარება არ გაუწია.</p>
-
-    <blockquote>რა უნდა ექნათ უსახლკაროდ და ულუკმაპუროდ დარჩენილ ბიჭებს? ერთადერთი გამოსავალი მოპარვა იყო, რათა შეენარჩუნებინათ სიცოცხლე.</blockquote>
-
-    <p>ნუთუ არ შეიძლებოდა, ვიღაცისთვის დახმარება მიეწოდებინა? შესაძლოა, ერთი ნაჭერი პური ან თავშესაფარი მაინც.</p>
-
-    <p>მთავარი მიზეზი, რის გამოც ადამიანი შეიძლება ჩაიდინოს დანაშაული, არის საზოგადოება. პრობლემა არ ეხება მხოლოდ წარსულს — დღესაც არიან ადამიანები, რომლებსაც ჩვენი დახმარება სჭირდებათ. ხშირად მათ ზურგს ვაქცევთ, რადგან ჩვენ კარგად ვართ, მაგრამ სწორედ ეს გულგრილობა წარმოშობს დანაშაულის გზას.</p>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">პოლიტიკა</a>
+  <a href="#">მსოფლიო</a>
+  <a href="#">ლიტერატურა</a>
+  <a href="#">ტექნოლოგიები</a>
 </div>
 
-<footer>
-    &copy; 2025 დამზადებულია ნიკოლოზ გასვიანის მიერ. ყველა უფლება დაცულია.
+<section class="hero">
+  <img src="./img/iraklikobaxize.png" alt="">
+  <div class="hero-overlay">
+    <span class="tag">პოლიტიკა</span>
+    <h1>ინტერვიუ საქართველოს პრემიერ მინისტრთან ირაკლი კობახიძესთან</h1>
+    <p>
+      საქართველოს პრემიერ მინისტრმა ირაკლი კობახიძემ ისაუბრა მთავრობის...
+    </p>
+    <a href="./magazine/premieri.html" class="btn">სტატიის ნახვა</a>
+  </div>
+</section>
+
+<main class="wrapper">
+  <section class="grid">
+
+    <article class="post">
+      <img src="./img/ninoqadagize.jpg">
+      <div class="post-content">
+        <span class="category">პოლიტიკა</span>
+        <h2>ინტერვიუ საქართველოს უზენაესი სასამართლოს თავმჯდომარე ნინო ქადაგიძესთან</h2>
+        <p>
+          საქართველოს უზენაესი სასამართლოს თავმჯდომარემ ნინო ქადაგიძემ ისაუბრა სასამართლოს როლზე...
+        </p>
+        <a href="./magazine/ninoqadagize.html">წაიკითხე →</a>
+      </div>
+    </article>
+
+    <article class="post">
+      <img src="./img/shalvapapuashvili.jpg">
+      <div class="post-content">
+        <span class="category">პოლიტიკა</span>
+        <h2>ინტერვიუ საქართველოს პარლამენტის თავმჯდომარე შალვა პაპუაშვილთან</h2>
+        <p>
+         საქართველოს პარლამენტის თავმჯდომრე შალვა პაპუაშვილმა ისაუბრა პარლამენტის როგორც საკანონმდებლო ორგანოს ...
+        </p>
+        <a href="./magazine/salvapapuasvili.html">წაიკითხე →</a>
+      </div>
+    </article>
+
+    <article class="post">
+    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+    <div class="post-content">
+      <span class="category">ლიტერატურა</span>
+      <h2>დანაშაული და საზოგადოება</h2>
+      <p>
+        დანაშაული არის მოქმედება ან ქმედება, რომელიც კანონით აკრძალულია და საზოგადოების წესების დარღვევად ითვლება. დამნაშავე შეიძლება იყოს ნებისმიერი ადამიანი. დანაშაულის ჩადენის ძირითადი...
+      </p>
+      <a href="./magazine/literatura.html">წაიკითხე →</a>
+    </div>
+  </article>
+
+  </section>
+</main>
+
+<footer class="footer">
+  © შექმნილია სპეციალურად სამოქალაქო განათლების კომპლექსური დავალებისთვის და აქ არსებული ინტერვიუები არარის რეალური 2025
 </footer>
+
+<script src="./function.js"></script>
 </body>
 </html>
