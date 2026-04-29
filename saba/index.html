@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="description"
+        content="სულხან-საბა ორბელიანის ვირტუალური მუზეუმი. გაეცანით მის ცხოვრებას, იგავებსა და მოგზაურობას 3D სივრცეში.">
+    <meta name="keywords" content="სულხან-საბა, მუზეუმი, სიბრძნე სიცრუისა, სიტყვის კონა, ისტორია, 3D">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://შენი-საიტის-მისამართი.ge/">
+    <meta property="og:title" content="სულხან-საბა | ვირტუალური მუზეუმი">
+    <meta property="og:description"
+        content="გაიარე ვირტუალური ტური და აღმოაჩინე ქართული მწერლობის საგანძური ინტერაქტიულ სივრცეში.">
+    <meta property="og:image" content="https://შენი-საიტის-მისამართი.ge/img/images.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://შენი-საიტის-მისამართი.ge/">
+    <meta property="twitter:title" content="სულხან-საბა | ვირტუალური მუზეუმი">
+    <meta property="twitter:description" content="ვირტუალური მოგზაურობა სულხან-საბას სამყაროში.">
+    <meta property="twitter:image" content="https://შენი-საიტის-მისამართი.ge/img/images.webp">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>სულხან-საბას მუზეუმი</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            cursor: crosshair;
+            font-family: 'Times New Roman', serif;
+            touch-action: none;
+        }
+
+        #crosshair {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 100;
+            border: 1px solid #aa8844;
+        }
+
+        /* პერგამენტის სტილის საინფორმაციო მოდალი */
+        .book-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            padding: 5vh 10vw;
+        }
+
+        .book-content {
+            background: #fdf6e3 url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            border: 15px solid #5d4037;
+            border-image: url('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmo.jpg') 30 round;
+            border-radius: 2px;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 80px rgba(0, 0, 0, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .book-header {
+            padding: 30px;
+            border-bottom: 3px solid #5d4037;
+            background: rgba(93, 64, 55, 0.1);
+        }
+
+        .book-body {
+            padding: 40px;
+            font-size: 1.3rem;
+            color: #4a3219;
+            line-height: 2.2;
+            text-align: justify;
+            font-style: italic;
+        }
+
+        .book-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            z-index: 1001;
+        }
+
+        .book-close:hover {
+            background: #a0522d;
+        }
+
+        /* მობილური კონტროლები - მხოლოდ ტელეფონისთვის */
+        #mobile-joystick {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 55px);
+            grid-template-rows: repeat(2, 55px);
+            gap: 8px;
+            z-index: 500;
+        }
+
+        .joy-btn {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            user-select: none;
+            backdrop-filter: blur(5px);
+        }
+
+        @media (min-width: 1024px) {
+            #mobile-joystick {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black">
+
+    <div id="crosshair"></div>
+
+    <div id="mobile-joystick">
+        <div></div>
+        <div class="joy-btn" id="m-up">▲</div>
+        <div></div>
+        <div class="joy-btn" id="m-left">◀</div>
+        <div class="joy-btn" id="m-down">▼</div>
+        <div class="joy-btn" id="m-right">▶</div>
+    </div>
+
+    <div
+        class="fixed top-6 left-6 z-50 bg-stone-950/95 text-stone-100 p-6 rounded-sm border-l-4 border-amber-600 shadow-2xl backdrop-blur-sm w-80 md:block hidden">
+        <h1 class="text-3xl font-serif font-bold italic tracking-wider">სულხან-საბა</h1>
+        <p class="text-amber-500 text-xs mt-1 uppercase tracking-widest">ვირტუალური მუზეუმი / 1658-1725</p>
+        <div class="mt-6 text-xs text-stone-400 space-y-2 bg-black/30 p-3 rounded-sm border border-stone-800">
+            <p><span class="font-bold text-white">[W, A, S, D]</span> - გადაადგილება</p>
+            <p><span class="font-bold text-white">[MOUSE]</span> - მიმოხედვა</p>
+            <p><span class="font-bold text-white">[CLICK]</span> - 3D წიგნის გადაშლა</p>
+        </div>
+    </div>
+
+    <div id="book-viewer" class="book-overlay">
+        <div class="book-content shadow-inner">
+            <button id="close-button" class="book-close">დასრულება</button>
+            <div class="book-header">
+                <h1 id="b-title" class="text-4xl font-bold text-stone-950"></h1>
+                <p id="b-subtitle" class="text-amber-950 text-sm mt-1 italic tracking-wide"></p>
+            </div>
+            <div id="b-body" class="book-body"></div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+        const museumContent = {
+            bio: {
+                title: "სულხან-საბას ცხოვრების გზა",
+                subtitle: "ბავშვობა, განათლება და ბერობა",
+                text: "სულხან-საბა ორბელიანი დაიბადა 1658 წელს, სოფელ ტანძიაში, თვალსაჩინო დიდგვაროვანის ოჯახში..."
+            },
+            sibrdzne: {
+                title: "სიბრძნე სიცრუისა",
+                subtitle: "იგავ-არაკების ფილოსოფია",
+                text: "'სიბრძნე სიცრუისა' საბას ახალგაზრდობაში დაიწერა..."
+            },
+            lexicon: {
+                title: "სიტყვის კონა",
+                subtitle: "ქართული ენის საგანძური",
+                text: "'სიტყვის კონა' არის საბას უმნიშვნელოვანესი მეცნიერული ნაშრომი..."
+            },
+            travel: {
+                title: "მოგზაურობა ევროპაში",
+                subtitle: "დიპლომატიური მისია და დღიურები",
+                text: "1713 წელს საბა გაემგზავრა ევროპაში საქართველოსთვის მხარდაჭერის მოსაპოვებლად..."
+            }
+        };
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a120b);
+        scene.fog = new THREE.Fog(0x1a120b, 1, 15);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1.7, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.body.appendChild(renderer.domElement);
+
+        const loader = new THREE.TextureLoader();
+
+        scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 0.4));
+        const deskLight = new THREE.PointLight(0xffe0aa, 8, 10);
+        deskLight.position.set(0, 3, -3);
+        deskLight.castShadow = true;
+        scene.add(deskLight);
+
+        const woodTex = loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/hardwood2_diffuse.jpg');
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.MeshStandardMaterial({ map: woodTex }));
+        floor.rotation.x = -Math.PI / 2;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        const wallMat = new THREE.MeshStandardMaterial({ color: 0x3d2b1f });
+
+        // ოთხივე კედელი (უკანა კედელიც დაემატა)
+        const backWall = new THREE.Mesh(new THREE.PlaneGeometry(14, 6), wallMat);
+        backWall.position.set(0, 3, -7); scene.add(backWall);
+
+        const frontWall = new THREE.Mesh(new THREE.PlaneGeometry(14, 6), wallMat);
+        frontWall.position.set(0, 3, 7); frontWall.rotation.y = Math.PI; scene.add(frontWall);
+
+        const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(14, 6), wallMat);
+        leftWall.position.set(-7, 3, 0); leftWall.rotation.y = Math.PI / 2; scene.add(leftWall);
+
+        const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(14, 6), wallMat);
+        rightWall.position.set(7, 3, 0); rightWall.rotation.y = -Math.PI / 2; scene.add(rightWall);
+
+        const interactables = [];
+        const colliders = [];
+
+        function createDesk(x, z) {
+            const deskGroup = new THREE.Group();
+            const top = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.1, 1.2), new THREE.MeshStandardMaterial({ color: 0x4b2d1f }));
+            top.position.y = 1; top.castShadow = true; deskGroup.add(top);
+            const createLeg = (lx, lz) => {
+                const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1, 8), new THREE.MeshStandardMaterial({ color: 0x4b2d1f }));
+                leg.position.set(lx, 0.5, lz); leg.castShadow = true; deskGroup.add(leg);
+            };
+            createLeg(1.1, 0.5); createLeg(-1.1, 0.5); createLeg(1.1, -0.5); createLeg(-1.1, -0.5);
+            deskGroup.position.set(x, 0, z);
+            scene.add(deskGroup);
+            colliders.push(new THREE.Box3().setFromObject(deskGroup));
+            return deskGroup;
+        }
+
+        function createRealBook(parent, dataKey, x = 0, z = 0, color = 0x8b0000, rotY = 0) {
+            const bookGroup = new THREE.Group();
+            const coverMat = new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 });
+            const cover = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.1, 0.7), coverMat);
+            cover.position.y = 1.1; cover.castShadow = true;
+            const pagesMat = new THREE.MeshStandardMaterial({ color: 0xfdf6e3, roughness: 1 });
+            const pages = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.08, 0.68), pagesMat);
+            pages.position.set(0, 1.1, 0);
+            bookGroup.add(cover, pages);
+            bookGroup.position.set(x, 0, z);
+            bookGroup.rotation.y = rotY;
+            bookGroup.userData = { content: museumContent[dataKey] };
+            parent.add(bookGroup);
+            interactables.push(pages);
+            pages.userData = bookGroup.userData;
+            return bookGroup;
+        }
+
+        createRealBook(createDesk(-3, -5), 'bio', 0, 0, 0x8b0000, Math.PI / 12);
+        createRealBook(createDesk(-5, 0), 'sibrdzne', 0, 0, 0x2f4f4f, -Math.PI / 8);
+        createRealBook(createDesk(0, -3), 'lexicon', 0, 0, 0x5d4037, 0);
+        createRealBook(createDesk(5, 2), 'travel', 0, 0, 0xcd853f, Math.PI / 6);
+
+        // პორტრეტი - გამოყენებულია სტაბილური ბმული
+        const portraitFrame = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.1, 0.1), new THREE.MeshStandardMaterial({ color: 0x2d1b0d }));
+        const portraitArt = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.9), new THREE.MeshBasicMaterial({ map: loader.load('data:image/jpeg;base64,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') }));
+        portraitArt.position.z = 0.06; portraitFrame.add(portraitArt);
+        portraitFrame.position.set(0, 3, -6.9); scene.add(portraitFrame);
+
+        const controls = new PointerLockControls(camera, document.body);
+
+        // შესწორება: კლიკზე რეაგირება
+        document.body.addEventListener('click', (e) => {
+            if (e.target.id === 'close-button') return;
+            if (window.innerWidth > 1024 && !controls.isLocked) controls.lock();
+            checkInteraction();
+        });
+
+        function checkInteraction() {
+            const ray = new THREE.Raycaster();
+            ray.setFromCamera(new THREE.Vector2(0, 0), camera);
+            const hits = ray.intersectObjects(interactables);
+            if (hits.length > 0) {
+                const data = hits[0].object.userData.content;
+                document.getElementById('b-title').innerText = data.title;
+                document.getElementById('b-subtitle').innerText = data.subtitle;
+                document.getElementById('b-body').innerText = data.text;
+                document.getElementById('book-viewer').style.display = 'block';
+                controls.unlock();
+            }
+        }
+
+        // შესწორება: დახურვის ღილაკის ლოგიკა
+        document.getElementById('close-button').onclick = (e) => {
+            e.stopPropagation();
+            document.getElementById('book-viewer').style.display = 'none';
+            if (window.innerWidth > 1024) controls.lock();
+        };
+
+        let move = { f: false, b: false, l: false, r: false };
+        document.onkeydown = (e) => {
+            if (e.code === 'KeyW') move.f = true;
+            if (e.code === 'KeyS') move.b = true;
+            if (e.code === 'KeyA') move.l = true;
+            if (e.code === 'KeyD') move.r = true;
+        };
+        document.onkeyup = (e) => {
+            if (e.code === 'KeyW') move.f = false;
+            if (e.code === 'KeyS') move.b = false;
+            if (e.code === 'KeyA') move.l = false;
+            if (e.code === 'KeyD') move.r = false;
+        };
+
+        const bindMob = (id, dir) => {
+            const btn = document.getElementById(id);
+            btn.ontouchstart = (e) => { e.preventDefault(); move[dir] = true; };
+            btn.ontouchend = (e) => { e.preventDefault(); move[dir] = false; };
+        };
+        bindMob('m-up', 'f'); bindMob('m-down', 'b'); bindMob('m-left', 'l'); bindMob('m-right', 'r');
+
+        let tX = 0, tY = 0;
+        renderer.domElement.ontouchmove = (e) => {
+            if (e.touches.length === 1) {
+                const s = 0.005;
+                if (tX !== 0) {
+                    camera.rotation.y -= (e.touches[0].pageX - tX) * s;
+                    camera.rotation.x -= (e.touches[0].pageY - tY) * s;
+                }
+                tX = e.touches[0].pageX; tY = e.touches[0].pageY;
+            }
+        };
+        renderer.domElement.ontouchend = () => { tX = 0; tY = 0; };
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (move.f || move.b || move.l || move.r) {
+                const oldPos = camera.position.clone();
+                const speed = 0.1;
+                if (move.f) controls.moveForward(speed);
+                if (move.b) controls.moveForward(-speed);
+                if (move.l) controls.moveRight(-speed);
+                if (move.r) controls.moveRight(speed);
+
+                const playerBox = new THREE.Box3().setFromCenterAndSize(camera.position, new THREE.Vector3(0.7, 2, 0.7));
+                for (let wall of colliders) {
+                    if (playerBox.intersectsBox(wall)) camera.position.copy(oldPos);
+                }
+                if (Math.abs(camera.position.x) > 6.5 || Math.abs(camera.position.z) > 6.5) camera.position.copy(oldPos);
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.onresize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+    </script>
+</body>
+
+</html>
