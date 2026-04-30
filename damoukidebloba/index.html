@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>საქართველოს პირველი რესპუბლიკის მატიანე | 1918-1921</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;700&family=Noto+Sans+Georgian:wght@300;400;700&display=swap');
+
+        :root {
+            --burgundy: #630d16;
+            --gold: #d4af37;
+            --paper: #f4eee1;
+            --ink: #1a1a1a;
+            --blood: #8b0000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--ink);
+            color: var(--paper);
+            font-family: 'Noto Sans Georgian', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* ცენტრირება */
+        }
+
+        /* სქროლვის ინდიკატორი */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.1);
+        }
+        #progress-bar {
+            height: 100%;
+            background: var(--burgundy);
+            width: 0%;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        /* ფონური სცენები */
+        .scene-wrap {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        #bg-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.2) contrast(1.2) sepia(0.2);
+            transition: background-image 1.5s ease, transform 0.8s ease-out;
+            transform: scale(1.05);
+        }
+
+        /* კონტენტის სექციები */
+        section {
+            min-height: 100vh;
+            width: 100%;
+            max-width: 1000px; /* კონტენტის მაქსიმალური სიგანე */
+            padding: 10vh 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .content-card {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            border-top: 3px solid var(--burgundy);
+            padding: 60px;
+            backdrop-filter: blur(15px);
+            opacity: 0;
+            transform: translateY(50px); /* ანიმაცია ქვემოდან ზემოთ უფრო უხდება ცენტრირებულს */
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center; /* ტექსტის ცენტრირება */
+        }
+
+        .content-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 { font-family: 'Noto Serif Georgian', serif; color: var(--gold); }
+        h1 { font-size: 4rem; line-height: 1.2; margin-bottom: 2rem; }
+        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(212, 175, 55, 0.3); display: inline-block; padding-bottom: 10px; }
+
+        .text-block {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #ddd;
+            text-align: justify; /* ტექსტის თანაბარი განაწილება */
+            margin-bottom: 20px;
+        }
+
+        /* დოკუმენტის სრული ხედი */
+        .document-view {
+            background: var(--paper);
+            color: var(--ink);
+            padding: 40px;
+            margin: 30px 0;
+            border: 1px solid #d2b48c;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.1);
+            text-align: left; /* აქტი უნდა იკითხებოდეს როგორც დოკუმენტი */
+            font-family: 'Noto Serif Georgian', serif;
+        }
+
+        .act-point {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--burgundy);
+            font-size: 1rem;
+        }
+
+        /* ბადე */
+        .grid-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .profile {
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            text-align: left;
+        }
+
+        footer {
+            padding: 80px 20px;
+            text-align: center;
+            background: #000;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+    
+    <div class="scene-wrap">
+        <div id="bg-image"></div>
+    </div>
+
+    <main>
+        <!-- 1. გამოცხადება და სრული აქტი -->
+        <section id="sec-1" data-bg="https://upload.wikimedia.org/wikipedia/commons/4/41/Old_Tbilisi_view.jpg">
+            <div class="content-card">
+                <h1>თავისუფლების დაბადება</h1>
+                <p class="text-block">
+                    1918 წლის 26 მაისს, თბილისში, საქართველოს ეროვნულმა საბჭომ მიიღო დამოუკიდებლობის აქტი. ეს იყო მრავალსაუკუნოვანი სახელმწიფოებრიობის აღდგენის გვირგვინი.
+                </p>
+                
+                <div class="document-view">
+                    <h3 style="color: var(--ink); text-align: center; margin-bottom: 20px;">საქართველოს დამოუკიდებლობის აქტი</h3>
+                    <div class="act-point"><strong>1.</strong> საქართველო სრულუფლებიანი დამოუკიდებელი სახელმწიფოა.</div>
+                    <div class="act-point"><strong>2.</strong> პოლიტიკური ფორმაა — დემოკრატიული რესპუბლიკა.</div>
+                    <div class="act-point"><strong>3.</strong> საერთაშორისო ომიანობაში საქართველო მუდმივ ნეიტრალური სახელმწიფოა.</div>
+                    <div class="act-point"><strong>4.</strong> რესპუბლიკას სურს კეთილმეზობლობა ყველა სახელმწიფოსთან.</div>
+                    <div class="act-point"><strong>5.</strong> თანაბრად უზრუნველყოფს ყველა მოქალაქის უფლებებს განურჩევლად ეროვნებისა და სქესისა.</div>
+                    <div class="act-point"><strong>6.</strong> განვითარების თავისუფალ ასპარეზს უხსნის ყველა მის ტერიტორიაზე მოსახლე ერს.</div>
+                    <div class="act-point"><strong>7.</strong> დამფუძნებელი კრების შეკრებამდე ქვეყანას მართავს ეროვნული საბჭო და დროებითი მთავრობა.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. მშენებლობა -->
+        <section id="sec-2" data-bg="https://upload.wikimedia.org/wikipedia/commons/8/87/First_Republic_of_Georgia_Parliament.jpg">
+            <div class="content-card">
+                <h2>დემოკრატიის მშენებლობა</h2>
+                <p class="text-block">
+                    1919 წელს ჩატარდა დამფუძნებელი კრების არჩევნები. საქართველო ერთ-ერთი პირველი იყო მსოფლიოში, სადაც ქალებს მიეცათ არჩევნებში მონაწილეობისა და არჩევის უფლება.
+                </p>
+                <div class="grid-system">
+                    <div class="profile">
+                        <h3>ივანე ჯავახიშვილი</h3>
+                        <p>უნივერსიტეტის დაარსებით საფუძველი ჩაეყარა ეროვნულ განათლებას.</p>
+                    </div>
+                    <div class="profile">
+                        <h3>5 ქალი დეპუტატი</h3>
+                        <p>მსოფლიო დემოკრატიის ისტორიაში ეს იყო უპრეცედენტო მოვლენა.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ოკუპაცია -->
+        <section id="sec-3" data-bg="https://upload.wikimedia.org/wikipedia/commons/e/ee/Independence_Day_of_Georgia_1918.jpg">
+            <div class="content-card" style="border-top-color: var(--blood);">
+                <h2>წითელი ოკუპაცია</h2>
+                <p class="text-block">
+                    1921 წლის თებერვალში რუსეთის მე-11 არმიამ დაარღვია სამშვიდობო ხელშეკრულება. მიუხედავად იუნკერების გმირული ბრძოლისა კოჯორსა და ტაბახმელაზე, თბილისი დაეცა. 21 თებერვალს, ბრძოლების პარალელურად, მიღებულ იქნა ქვეყნის პირველი კონსტიტუცია.
+                </p>
+            </div>
+        </section>
+
+        <!-- 4. მემკვიდრეობა -->
+        <section id="sec-4" data-bg="https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Georgia_%281918-1921%29.svg">
+            <div class="content-card">
+                <h2>საგანძური და მომავალი</h2>
+                <p class="text-block">
+                    ემიგრაციაში წასულმა მთავრობამ ექვთიმე თაყაიშვილის მეთაურობით გადაარჩინა ეროვნული საგანძური. პირველი რესპუბლიკის იდეალები გახდა 1991 წლის დამოუკიდებლობის აღდგენის საფუძველი.
+                </p>
+                <div class="grid-system">
+                    <div class="profile">
+                        <h3>ექვთიმე თაყაიშვილი</h3>
+                        <p>დაიცვა ქართული კულტურა ემიგრაციის მძიმე წლებში.</p>
+                    </div>
+                    <div class="profile">
+                        <h3>9 აპრილი, 1991</h3>
+                        <p>დღე, როდესაც საქართველომ ოფიციალურად აღადგინა 1918 წლის დამოუკიდებლობა.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h2 style="color: var(--gold); font-size: 1.5rem;">თავისუფლება ლომთა ხვედრია</h2>
+        <p style="margin-top: 10px; opacity: 0.7;">ავტორი: ნიკოლოზ გასვიანი &copy; 2026</p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+        const bgImage = document.getElementById('bg-image');
+        const progressBar = document.getElementById('progress-bar');
+        const cards = document.querySelectorAll('.content-card');
+
+        // პირველი ფონის ინიციალიზაცია
+        bgImage.style.backgroundImage = `url('${sections[0].getAttribute('data-bg')}')`;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            progressBar.style.width = scrollPercent + "%";
+
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                
+                // როცა სექცია ჩანს
+                if (rect.top < window.innerHeight * 0.6 && rect.bottom > 200) {
+                    cards[index].classList.add('active');
+                    
+                    const newImg = section.getAttribute('data-bg');
+                    bgImage.style.backgroundImage = `url('${newImg}')`;
+                    
+                    // პარალაქსი
+                    const offset = rect.top * 0.15;
+                    bgImage.style.transform = `scale(1.1) translateY(${offset}px)`;
+                } else {
+                    cards[index].classList.remove('active');
+                }
+            });
+        });
+
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
